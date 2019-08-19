@@ -4,6 +4,15 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    useBuildCache = true
+    javacOptions {
+        option("-Xmaxerrs", 500)
+    }
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
@@ -21,6 +30,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dexOptions {
+        preDexLibraries true
+        maxProcessCount 8
+    }
 }
 
 dependencies {
@@ -32,4 +52,48 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    // RxBinding
+    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxbinding_version"
+    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$rxbinding_version"
+    implementation "com.jakewharton.rxbinding2:rxbinding-design-kotlin:$rxbinding_version"
+    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:$rxbinding_version"
+
+    // RxPreference
+    implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0'
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    // Lifecycle
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version"
+    implementation "android.arch.lifecycle:runtime:$lifecycle_version"
+    implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
+    kapt "android.arch.lifecycle:compiler:$lifecycle_version"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:$dagger_version"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+
+    // AutoDispose
+    implementation "com.uber.autodispose:autodispose-ktx:$autodispose_version"
+    implementation "com.uber.autodispose:autodispose-android-archcomponents-ktx:$autodispose_version"
+
+    // Anko
+    implementation "org.jetbrains.anko:anko-commons:$anko_verison"
+
 }
