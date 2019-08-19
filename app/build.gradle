@@ -35,6 +35,7 @@ android {
         }
 
         debug {
+            applicationIdSuffix ".debug"
             debuggable true
 
             buildConfigField('String', 'BASE_URL', '"https://www.baidu.com/api/v1/"')
