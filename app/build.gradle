@@ -26,8 +26,18 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField('String', 'BASE_URL', '"https://www.baidu.com/api/v1/"')
+        }
+
+        debug {
+            debuggable true
+
+            buildConfigField('String', 'BASE_URL', '"https://www.baidu.com/api/v1/"')
         }
     }
     dataBinding {
